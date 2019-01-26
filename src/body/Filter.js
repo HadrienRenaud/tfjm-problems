@@ -1,5 +1,17 @@
 import React, {Component} from 'react';
-import {Button, Header, List, Segment} from "semantic-ui-react";
+import {
+    Checkbox,
+    Container,
+    Divider,
+    Header,
+    Input,
+    Label,
+    List,
+    Menu,
+    Search,
+    Segment,
+    Sticky
+} from "semantic-ui-react";
 import PropTypes from 'prop-types';
 
 class Filter extends Component {
@@ -9,21 +21,31 @@ class Filter extends Component {
     }
 
     render() {
-        return <Segment>
-            <Header as="h3" content="Filter"/>
-            <List>
-                {this.props.tags.map((tag) => {
-                        if (tag)
-                            return <List.Item key={tag.id}>
-                                <Button onClick={(e) => this.props.onClick(e, tag.id)}>
-                                    {tag.name}
-                                </Button>
-                            </List.Item>;
-                        else return ""
-                    }
-                )}
-            </List>
-        </Segment>
+        return (
+            <Segment>
+                <Header as="h3" content="Filter"/>
+                <Input fluid placeholder='Search...'/>
+                <Divider/>
+                <List horizontal>
+                    {this.props.tags.map((tag) => {
+                            if (tag)
+                                return <List.Item key={tag.id}>
+                                    <Label
+                                        onClick={(e) => {
+                                            this.props.onClick(e, tag.id)
+                                        }}
+                                        className={tag.isTriggered ? '' : 'basic'}
+                                        color="blue"
+                                    >
+                                        {tag.name}
+                                    </Label>
+                                </List.Item>
+                            else return ""
+                        }
+                    )}
+                </List>
+            </Segment>
+        )
     }
 }
 

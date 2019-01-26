@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Container, Card, Grid} from "semantic-ui-react";
+import {Header, Container, Card, Grid, Image, Sticky, Segment} from "semantic-ui-react";
 import ProbCard from "./ProbCard";
 import config from "../config";
 import ErrorMessage from "../errors/ErrorMessage";
@@ -12,6 +12,17 @@ function shouldBeDisplayed(pbTag, activeTags) {
     return pbTag.filter(value => -1 !== activeTags.indexOf(value)).length > 0;
 }
 
+const fuseOptions = {
+    id: 'id',
+    keys: [{
+        name: 'name',
+        weight: 0.7,
+    },{
+        name: 'description',
+        weight: 0.3,
+    }]
+};
+
 class Index extends Component {
     constructor() {
         super();
@@ -21,15 +32,23 @@ class Index extends Component {
             tags: [],
             hasError: false,
             error: null,
-            activeTags: []
-        }
+            activeTags: [],
+            probOrder: [],
+        };
     }
 
     filterUpdate(e, id) {
-        if (this.state.activeTags.indexOf(id) === -1)
-            this.setState({ activeTags: [id, ...this.state.activeTags] })
-        else
-            this.setState({ activeTags: this.state.activeTags.filter(t => t !== id)})
+        if (this.state.activeTags.indexOf(id) === -1) {
+            this.state.tags[id].isTriggered = true;
+            this.setState({activeTags: [id, ...this.state.activeTags]})
+        } else {
+            this.state.tags[id].isTriggered = false;
+            this.setState({activeTags: this.state.activeTags.filter(t => t !== id)})
+        }
+    }
+
+    onUpdateChange(e, { value }) {
+
     }
 
     componentDidMount() {
@@ -40,7 +59,13 @@ class Index extends Component {
             .then(data => {
                 console.log("Answered from " + address + " received.");
                 let tagsById = [];
-                data.tags.map(tag => {tag.isTriggered = false; tagsById[tag.id] = tag; return 0;});
+                this.state.probOrder = [];
+                data.tags.map(tag => {
+                    tag.isTriggered = false;
+                    tagsById[tag.id] = tag;
+                    this.state.probOrder.push(tag.id);
+                    return 0;
+                });
                 this.setState({
                     problems: data.problems,
                     tags: tagsById,
@@ -67,24 +92,16 @@ class Index extends Component {
                 <Header as="h2">
                     Index
                 </Header>
-
-                <Grid columns={5}>
-                    <Grid.Column>
-                        <Filter tags={this.state.tags} onClick={this.filterUpdate.bind(this)}/>
-                    </Grid.Column>
-
-                    <Grid.Column width="4">
-                        <Container>
-                            <Card.Group>
-                                {this.state.problems.map((problem) => {
-                                    if (problem && shouldBeDisplayed(problem.tags.map(t => t.id), this.state.activeTags))
-                                        return <ProbCard problem={problem} key={problem.id}/>;
-                                    else return ""
-                                })}
-                            </Card.Group>
-                        </Container>
-                    </Grid.Column>
-                </Grid>
+                    <Filter tags={this.state.tags} onClick={this.filterUpdate.bind(this)} />
+                <Segment>
+                    <Card.Group itemPerLine="3" centered>
+                        {this.state.problems.map((problem) => {
+                            if (problem && shouldBeDisplayed(problem.tags.map(t => t.id), this.state.activeTags))
+                                return <ProbCard problem={problem} key={problem.id}/>;
+                            else return ""
+                        })}
+                    </Card.Group>
+                </Segment>
             </Container>
         )
     }
