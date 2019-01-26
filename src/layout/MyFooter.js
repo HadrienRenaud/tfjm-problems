@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
+import {Container, Segment} from 'semantic-ui-react';
 
 class MyFooter extends Component {
     render() {
         return (
-            <footer>
-                Footer
-            </footer>
+            <Segment>
+                <Container>
+                    Footer
+                </Container>
+            </Segment>
         )
     }
 }

@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
+import {Menu, Container} from 'semantic-ui-react';
 
 class MyHeader extends Component {
     render() {
         return (
-            <header>
-                Header
-            </header>
+            <Menu>
+                <Container>
+                    <Menu.Item>
+                        BOnjour
+                    </Menu.Item>
+                </Container>
+            </Menu>
         )
     }
 }
