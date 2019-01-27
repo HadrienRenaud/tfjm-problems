@@ -1,16 +1,11 @@
 import React, {Component} from 'react';
 import {
-    Checkbox,
-    Container,
     Divider,
     Header,
     Input,
     Label,
     List,
-    Menu,
-    Search,
     Segment,
-    Sticky
 } from "semantic-ui-react";
 import PropTypes from 'prop-types';
 

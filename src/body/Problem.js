@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Header, Container} from 'semantic-ui-react'
+import {Header, Container, Segment, Divider, List, Label} from 'semantic-ui-react'
 import PropTypes from "prop-types";
 import config from "../config";
 import ErrorMessage from "../errors/ErrorMessage";
+import PDFViewer from "./PDFViewer";
 
-class Problem extends Component{
+class Problem extends Component {
     static propTypes = {
         match: PropTypes.object.isRequired,
     }
@@ -13,16 +14,17 @@ class Problem extends Component{
         super();
         this.state = {
             loading: true,
-            problem: {},
+            problem: {tags: []},
             hasError: false,
             error: null,
+            pdf: {},
         }
     }
 
     componentDidMount() {
-        let adress = config.apiAdress + '/problem/' + this.props.match.params.id;
-        console.log('Calling ' + adress);
-        fetch(adress)
+        let address = config.apiAdress + '/problem/' + this.props.match.params.id;
+        console.log('Calling ' + address);
+        fetch(address)
             .then(results => results.json())
             .then(data => {
                 console.log("problem :", data);
@@ -39,18 +41,47 @@ class Problem extends Component{
                     loading: false,
                 })
             })
+            .then(() => {
+                fetch(address + '/pdf').then((result) => {
+                    this.setState({
+                        pdf: result
+                    })
+                })
+            })
     }
+
     render() {
         console.log(this.state.problem);
 
         return (
             <Container>
                 {this.state.hasError && <ErrorMessage err={this.state.error}/>}
-                <Header>
-                    {this.state.problem.name}
-                </Header>
 
-                {this.state.problem.description}
+                <Segment>
+                    <Header as="h2">
+                        {this.state.problem.name}
+                    </Header>
+
+                    {this.state.problem.description}
+
+                    <Divider/>
+
+                    <List horizontal>
+                        {this.state.problem.tags.map(tag => (
+                            <List.Item key={tag.id}>
+                                <Label color="blue" basic>
+                                    {tag.name}
+                                </Label>
+                            </List.Item>
+                        ))}
+                    </List>
+                </Segment>
+
+                {this.state.loading ? "" :
+                    <PDFViewer url={config.apiAdress + '/problem/' + this.props.match.params.id}
+
+                    />
+                }
 
             </Container>
         )
