@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {
+    Button,
     Divider,
     Header,
     Input,
@@ -17,15 +18,15 @@ class Filter extends Component {
 
     render() {
         return (
-            <Segment>
-                <Header as="h3" content="Filter"/>
-                <Input fluid placeholder='Search...'/>
+            <Segment padded='very'>
+                <Header as="h3" content="Filtrer"/>
+                <Input fluid placeholder='Rechercher...'/>
                 <Divider/>
                 <List horizontal>
                     {this.props.tags.map((tag) => {
                             if (tag)
                                 return <List.Item key={tag.id}>
-                                    <Label
+                                    <Button
                                         onClick={(e) => {
                                             this.props.onClick(e, tag.id)
                                         }}
@@ -33,7 +34,7 @@ class Filter extends Component {
                                         color="blue"
                                     >
                                         {tag.name}
-                                    </Label>
+                                    </Button>
                                 </List.Item>
                             else return ""
                         }

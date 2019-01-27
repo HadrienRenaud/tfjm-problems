@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Card, Image} from "semantic-ui-react";
+import {Button, Card, Image, List} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 
 
@@ -20,6 +20,20 @@ class ProbCard extends Component {
                     <Card.Description>
                         {this.props.problem.description}
                     </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <List horizontal>
+                        {this.props.problem.tags.map((tag) => {
+                                if (tag)
+                                    return <List.Item key={tag.id}>
+                                        <Button color="grey" basic size="mini">
+                                            {tag.name}
+                                        </Button>
+                                    </List.Item>
+                                else return ""
+                            }
+                        )}
+                    </List>
                 </Card.Content>
             </Link>
         )

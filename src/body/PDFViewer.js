@@ -42,12 +42,12 @@ class PDFViewer extends Component {
                                 onClick={this.handlePrevious}
                         >
                             <Icon name='left arrow'/>
-                            Previous Page
+                            Précédent
                         </Button>
                     </Menu.Item>
                     <Menu.Item>
                         <Header>
-                            Preview
+                            Visualisation
                         </Header>
                     </Menu.Item>
                     <Menu.Menu position='right'>
@@ -58,7 +58,7 @@ class PDFViewer extends Component {
                                     href={this.props.url + '.pdf'}
                             >
                                 <Icon name='download'/>
-                                Get PDF
+                                PDF
                             </Button>
                         </Menu.Item>
                         <Menu.Item>
@@ -67,7 +67,7 @@ class PDFViewer extends Component {
                                     href={this.props.url + '.tex'}
                             >
                                 <Icon name='download'/>
-                                Get TEX
+                                TEX
                             </Button>
                         </Menu.Item>
                         <Menu.Item>
@@ -76,9 +76,8 @@ class PDFViewer extends Component {
                                     href={this.props.url + '.zip'}
                             >
                                 <Icon name='download'/>
-                                Get Medias
+                                Figures
                             </Button>
-
                         </Menu.Item>
                         <Menu.Item>
                             <Button icon
@@ -86,7 +85,7 @@ class PDFViewer extends Component {
                                     className={this.state.page === this.state.pages ? "disabled" : ""}
                                     onClick={this.handleNext}
                             >
-                                Next Page
+                                Suivant
                                 <Icon name='right arrow'/>
                             </Button>
                         </Menu.Item>

@@ -57,7 +57,7 @@ class Problem extends Component {
             <Container>
                 {this.state.hasError && <ErrorMessage err={this.state.error}/>}
 
-                <Segment>
+                <Segment padded='very'>
                     <Header as="h2">
                         {this.state.problem.name}
                     </Header>

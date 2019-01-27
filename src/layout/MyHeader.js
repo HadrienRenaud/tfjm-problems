@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Menu, Container, Header, Dropdown} from 'semantic-ui-react';
+import {Menu, Container, Header, Dropdown, Divider} from 'semantic-ui-react';
 
 class MyHeader extends Component {
     render() {
@@ -8,23 +8,24 @@ class MyHeader extends Component {
                 <Container>
                     <Menu.Item>
                         <a href="/">
-                            Home
+                            Accueil
                         </a>
                     </Menu.Item>
-                    <Menu.Item fluid textAlign='center'>
-                        <Header as="h2" textAlign='center'>
-                            Problèmes du TFJM
+                    <Menu.Item>
+                        <Header as="h2">
+                            Les Problèmes du TFJM²
                         </Header>
                     </Menu.Item>
                     <Menu.Menu position='right'>
-                        <Dropdown item text="About">
+                        <Menu.Item>
+                            <a href="https://tfjm.org/les-problemes/">Les problèmes actuels</a>
+                        </Menu.Item>
+                        <Dropdown item text="À propos">
                             <Dropdown.Menu>
-                                <Dropdown.Item><a href="mailto://contact@tfjm.org">Contact</a></Dropdown.Item>
+                                <Dropdown.Item> <a href="mailto://contact@tfjm.org">Contact</a> </Dropdown.Item>
+                                <Dropdown.Item> <a href="https://tfjm.org">TFJM²</a> </Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                        <Menu.Item>
-                            <a href="https://tfjm.org">TFJM</a>
-                        </Menu.Item>
                     </Menu.Menu>
                 </Container>
             </Menu>

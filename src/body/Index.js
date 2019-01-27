@@ -17,7 +17,7 @@ const fuseOptions = {
     keys: [{
         name: 'name',
         weight: 0.7,
-    },{
+    }, {
         name: 'description',
         weight: 0.3,
     }]
@@ -47,7 +47,7 @@ class Index extends Component {
         }
     }
 
-    onUpdateChange(e, { value }) {
+    onUpdateChange(e, {value}) {
 
     }
 
@@ -89,10 +89,7 @@ class Index extends Component {
             <Container>
                 {this.state.hasError && <ErrorMessage err={this.state.error}/>}
 
-                <Header as="h2">
-                    Index
-                </Header>
-                    <Filter tags={this.state.tags} onClick={this.filterUpdate.bind(this)} />
+                <Filter tags={this.state.tags} onClick={this.filterUpdate.bind(this)}/>
                 <Segment>
                     <Card.Group itemPerLine="3" centered>
                         {this.state.problems.map((problem) => {
