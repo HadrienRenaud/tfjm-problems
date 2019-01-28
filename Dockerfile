@@ -5,10 +5,10 @@ FROM node:8
 ADD package.json /tmp/package.json
 ADD package-lock.json /tmp/package-lock.json
 RUN cd /tmp && npm install --only=production
-RUN npm run build
-RUN npm install serve -g
+RUN cd /tmp && npm run build
 RUN mkdir -p /opt/app && cp -a /tmp/build
 WORKDIR /opt/app
+RUN npm install serve -g
 ADD . /opt/app
 
 EXPOSE 3000
