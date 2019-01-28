@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Menu, Container, Header, Dropdown, Divider} from 'semantic-ui-react';
+import {Menu, Container, Header, Dropdown} from 'semantic-ui-react';
 
 class MyHeader extends Component {
     render() {

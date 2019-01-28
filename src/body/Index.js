@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Container, Card, Grid, Image, Sticky, Segment} from "semantic-ui-react";
+import {Container, Card, Segment} from "semantic-ui-react";
 import ProbCard from "./ProbCard";
 import config from "../config";
 import ErrorMessage from "../errors/ErrorMessage";
