@@ -8,6 +8,7 @@ ADD . /opt/app
 RUN npm install --only=production
 RUN npm run build
 RUN npm install serve -g
+RUN chmod -R 775 /opt/app
 
 EXPOSE 3000
 
