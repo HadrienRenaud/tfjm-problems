@@ -6,7 +6,7 @@ RUN mkdir -p /opt/app
 WORKDIR /opt/app
 ADD . /opt/app
 RUN npm install --only=production
-RUN cd /tmp && npm run build
+RUN npm run build
 RUN npm install serve -g
 
 EXPOSE 3000
