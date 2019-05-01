@@ -14,13 +14,14 @@ class Filter extends Component {
     static propTypes = {
         onClick: PropTypes.func.isRequired,
         tags: PropTypes.array.isRequired,
+        onSearchChange: PropTypes.func.isRequired,
     }
 
     render() {
         return (
             <Segment padded='very'>
                 <Header as="h3" content="Filtrer"/>
-                <Input fluid placeholder='Rechercher...'/>
+                <Input fluid placeholder='Rechercher...' onChange={this.props.onSearchChange}/>
                 <Divider/>
                 <List horizontal>
                     {this.props.tags.map((tag) => {
