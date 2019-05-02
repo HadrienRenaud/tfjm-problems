@@ -14,7 +14,7 @@ class App extends Component {
                         {/* According to https://tylermcginnis.com/react-router-pass-props-to-components/ , the
                         best way to pass props to routes is with the render prop */}
                         <Route path="/problem/:id" component={Problem}/>
-                        <Route path="/" component={Index}/>}/>
+                        <Route path="/" exact component={Index}/>}/>
                     </Switch>
                 </BrowserRouter>
             </MyLayout>

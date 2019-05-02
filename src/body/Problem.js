@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Header, Container, Segment, Divider, List, Label} from 'semantic-ui-react'
+import {Header, Container, Segment, Divider, List, Label, Placeholder} from 'semantic-ui-react'
 import PropTypes from "prop-types";
 import config from "../config";
 import ErrorMessage from "../errors/ErrorMessage";
@@ -44,14 +44,60 @@ class Problem extends Component {
             .then(() => {
                 fetch(address + '/pdf').then((result) => {
                     this.setState({
-                        pdf: result
+                        pdf: result,
+
                     })
                 })
             })
     }
 
     render() {
-        console.log(this.state.problem);
+        if (this.state.loading)
+            return <Container>
+                <Placeholder fluid>
+                    <Placeholder.Header>
+                        <Placeholder.Line length="long"/>
+                    </Placeholder.Header>
+
+                    <Placeholder.Paragraph>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                        <Placeholder.Line/>
+                    </Placeholder.Paragraph>
+
+                    <Placeholder.Image rectangular/>
+                </Placeholder>
+
+                <Segment padded='very'>
+                    <Header as="h2">
+                        {this.state.problem.name}
+                    </Header>
+
+                    {this.state.problem.description}
+
+                    <Divider/>
+
+                    <List horizontal>
+                        {this.state.problem.tags.map(tag => (
+                            <List.Item key={tag.id}>
+                                <Label color="blue" basic>
+                                    {tag.name}
+                                </Label>
+                            </List.Item>
+                        ))}
+                    </List>
+                </Segment>
+            </Container>
 
         return (
             <Container>

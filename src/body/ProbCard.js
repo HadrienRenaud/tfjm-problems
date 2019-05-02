@@ -2,6 +2,14 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Button, Card, Image, List} from "semantic-ui-react";
 import {Link} from "react-router-dom";
+import config from "../config";
+
+
+class ProbImage extends Component {
+    static propTypes = {
+        id: PropTypes.string.isRequired
+    }
+}
 
 
 class ProbCard extends Component {
@@ -12,7 +20,7 @@ class ProbCard extends Component {
     render() {
         return (
             <Link to={"/problem/" + this.props.problem.id} className="card">
-                <Image src='http://smilylove.s.m.pic.centerblog.net/o/0c0966b7.jpg' />
+                <Image src={config.apiAdress + '/problem/' + this.props.problem.id + "/image"} />
                 <Card.Content>
                     <Card.Header>
                         {this.props.problem.name}

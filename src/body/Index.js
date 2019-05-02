@@ -61,15 +61,12 @@ class Index extends Component {
                     return 0;
                 });
                 this.allProblems = data.problems.filter(problem => !!problem);
-                console.log("coucou")
                 this.search.addDocuments(this.allProblems);
-                console.log("post addDocuments")
                 this.setState({
                     problems: this.allProblems,
                     tags: tagsById,
                     loading: false,
                 })
-                console.log("post setState")
             })
             .catch(err => {
                 console.error(err);
