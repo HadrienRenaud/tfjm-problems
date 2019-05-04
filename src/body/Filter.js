@@ -4,7 +4,6 @@ import {
     Divider,
     Header,
     Input,
-    Label,
     List,
     Segment,
 } from "semantic-ui-react";
@@ -15,7 +14,7 @@ class Filter extends Component {
         onClick: PropTypes.func.isRequired,
         tags: PropTypes.array.isRequired,
         onSearchChange: PropTypes.func.isRequired,
-    }
+    };
 
     render() {
         return (

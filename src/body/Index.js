@@ -37,11 +37,18 @@ class Index extends Component {
 
     filterUpdate(e, id) {
         if (this.state.activeTags.indexOf(id) === -1) {
-            this.state.tags[id].isTriggered = true;
-            this.setState({activeTags: [id, ...this.state.activeTags]})
+            let tags = this.state.tags;
+            tags[id].isTriggered = true;
+            this.setState({
+                tags: tags,
+                activeTags: [id, ...this.state.activeTags],
+            })
         } else {
-            this.state.tags[id].isTriggered = false;
-            this.setState({activeTags: this.state.activeTags.filter(t => t !== id)})
+            let tags = this.state.tags;
+            tags[id].isTriggered = false;
+            this.setState({
+                tags: tags,
+                activeTags: this.state.activeTags.filter(t => t !== id)})
         }
     }
 
@@ -53,16 +60,17 @@ class Index extends Component {
             .then(data => {
                 console.log("Answered from " + address + " received.");
                 let tagsById = [];
-                this.state.probOrder = [];
+                let probOrder = [];
                 data.tags.map(tag => {
                     tag.isTriggered = false;
                     tagsById[tag.id] = tag;
-                    this.state.probOrder.push(tag.id);
+                    probOrder.push(tag.id);
                     return 0;
                 });
                 this.allProblems = data.problems.filter(problem => !!problem);
                 this.search.addDocuments(this.allProblems);
                 this.setState({
+                    probOrder: probOrder,
                     problems: this.allProblems,
                     tags: tagsById,
                     loading: false,

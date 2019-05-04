@@ -4,18 +4,10 @@ import {Button, Card, Image, List} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import config from "../config";
 
-
-class ProbImage extends Component {
-    static propTypes = {
-        id: PropTypes.string.isRequired
-    }
-}
-
-
 class ProbCard extends Component {
     static propTypes = {
         problem: PropTypes.object.isRequired
-    }
+    };
 
     render() {
         return (

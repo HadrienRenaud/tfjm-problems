@@ -8,7 +8,7 @@ import PDFViewer from "./PDFViewer";
 class Problem extends Component {
     static propTypes = {
         match: PropTypes.object.isRequired,
-    }
+    };
 
     constructor() {
         super();
