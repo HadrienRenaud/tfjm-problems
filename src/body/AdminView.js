@@ -206,7 +206,8 @@ class AdminView extends Component {
                 />
                 <Menu.Menu position='right'>
                     <Menu.Item>
-                        <Button icon="plus" labelPosition="left" content="Nouveau problème" color="green"/>
+                        <Button icon="plus" labelPosition="left" content="Nouveau problème" color="green" as={Link}
+                                to="/admin/new"/>
                     </Menu.Item>
                 </Menu.Menu>
             </Menu>

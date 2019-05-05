@@ -11,8 +11,9 @@ import {
     Label,
     Segment,
     TransitionablePortal,
-    Divider, Dropdown
+    Divider, Dropdown, Menu
 } from 'semantic-ui-react'
+import {Link, Redirect} from "react-router-dom";
 
 class AddTag extends Component {
     static propTypes = {
@@ -132,8 +133,6 @@ class AddTag extends Component {
 class FormProblem extends Component {
     static propTypes = {
         pb: PropTypes.object,
-        removeTag: PropTypes.func.isRequired,
-        addTag: PropTypes.func.isRequired,
     };
 
     state = {
@@ -209,6 +208,16 @@ class FormProblem extends Component {
                     this.setState({
                         loading: false,
                     })
+                else if (result.status === 201) {
+                    return result.json()
+                        .then(data => {
+                            console.log("pr created :", data);
+                            this.setState({
+                                loading: false,
+                                redirectTo: "/admin/problem/" + data.id,
+                            })
+                        })
+                }
                 else {
                     console.log("Unexpected answer : ", result)
                     this.setState({
@@ -226,25 +235,38 @@ class FormProblem extends Component {
     }
 
     render() {
+        if (this.state.redirectTo)
+            return <Redirect to={this.state.redirectTo}/>
+
         return <Container>
-            <TransitionablePortal onClose={() => {
-                this.setState({previewImage: false})
-            }}
-                                  open={this.state.previewImage}>
-                <Segment style={{left: '40%', position: 'fixed', top: '20%', zIndex: 1000}}>
-                    <Image size="big" rounded
-                           src={config.apiAdress + '/problem/' + this.props.pb.id + "/image"}/>
-                </Segment>
-            </TransitionablePortal>
+            {this.state.pb ?
+                <TransitionablePortal onClose={() => {
+                    this.setState({previewImage: false})
+                }}
+                                      open={this.state.previewImage}>
+                    <Segment style={{left: '40%', position: 'fixed', top: '20%', zIndex: 1000}}>
+                        <Image size="big" rounded
+                               src={config.apiAdress + '/problem/' + this.props.pb.id + "/image"}/>
+                    </Segment>
+                </TransitionablePortal>
+                : ""}
 
-            <Header>
-                {this.props.pb ?
-                    "Modification d'un problème"
-                    :
-                    "Création d'un problème"
-                }
-            </Header>
-
+            <Menu secondary>
+                <Menu.Item>
+                    <Header as="h1">
+                        {this.props.pb ?
+                            "Modification d'un problème"
+                            :
+                            "Création d'un problème"
+                        }
+                    </Header>
+                </Menu.Item>
+                <Menu.Menu position="right">
+                    <Menu.Item>
+                        <Button as={Link} to="/admin" content="Retour à la page admin" basic/>
+                    </Menu.Item>
+                </Menu.Menu>
+            </Menu>
 
             <Form error={this.state.hasError}>
                 <Segment loading={this.state.loading} vertical>
